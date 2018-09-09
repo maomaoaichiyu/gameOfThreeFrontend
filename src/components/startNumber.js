@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './components.css';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { send } from '../actions';
 
 class StartNumber extends Component {
   constructor(props) {
@@ -9,6 +11,9 @@ class StartNumber extends Component {
   }
 
   startButtonClick = () => {
+    const { startNumberInput } = this.state;
+    const { sendStartNumber } = this.props;
+    sendStartNumber(parseInt(startNumberInput, 10));
   }
 
   handleChange = (event) => {
@@ -17,6 +22,7 @@ class StartNumber extends Component {
 
   render() {
     const { startNumberInput } = this.state;
+    const { gameState } = this.props;
     return (
       <div className="StartBlock">
         <input
@@ -29,7 +35,7 @@ class StartNumber extends Component {
           className="StartButton"
           type="button"
           onClick={this.startButtonClick}
-          disabled={!startNumberInput}
+          disabled={!startNumberInput || gameState !== 'start'}
         >
           Start
         </button>
@@ -38,4 +44,18 @@ class StartNumber extends Component {
   }
 }
 
-export default connect()(StartNumber);
+StartNumber.propTypes = {
+  gameState: PropTypes.string.isRequired,
+  sendStartNumber: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  gameState: state.gameStateReducer.status,
+});
+
+const mapDispatchToProps = dispatch => ({
+  sendStartNumber: number => dispatch(send(number)),
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(StartNumber);
