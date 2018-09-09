@@ -1,0 +1,65 @@
+.StartBlock {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+  justify-content: center;
+  background-color: rgba(51, 170, 51, .3);
+}
+
+div > input, .StartButton {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+div > input {
+  width: 60%;
+}
+
+.GameInteractionBlock {
+  width: 100%;
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: rgba(210, 109, 109, .3);
+  display: flex;
+  flex-direction: column;
+}
+
+.ChooseTitle {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.Choice {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+label > input {
+  margin-right: 20%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+.InteractionButton {
+  align-self: flex-end;
+  margin-right: 50px;
+}
+
+.GameConsole {
+  background-color: rgba(70, 152, 224, .3);
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.LogTitle {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 10px;
+}
