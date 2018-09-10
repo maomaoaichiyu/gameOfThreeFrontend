@@ -18,6 +18,9 @@ export default (state = [], action) => {
       index += 1;
       gameResult = action.winner ? 'You won! :)' : 'You lost! :(';
       return state.concat([{ id: index, message: gameResult }]);
+    case 'CONNECTED':
+      index += 1;
+      return state.concat([{ id: index, message: 'You are connected to the server.' }]);
     case 'DISCONNECTED':
       index += 1;
       return state.concat([{ id: index, message: 'Disconnected from the server. Please refresh to retry.' }]);
