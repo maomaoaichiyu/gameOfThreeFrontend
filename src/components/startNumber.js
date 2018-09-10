@@ -12,9 +12,9 @@ class StartNumber extends Component {
 
   startButtonClick = () => {
     const { startNumberInput } = this.state;
-    const { sendStartNumber, showFirstMove } = this.props;
-    let startNumber = parseInt(startNumberInput, 10);
-    showFirstMove(startNumber);
+    const { sendStartNumber, showStartNumber } = this.props;
+    const startNumber = parseInt(startNumberInput, 10);
+    showStartNumber(startNumber);
     sendStartNumber(startNumber);
   }
 
@@ -49,7 +49,7 @@ class StartNumber extends Component {
 StartNumber.propTypes = {
   gameState: PropTypes.string.isRequired,
   sendStartNumber: PropTypes.func.isRequired,
-  showFirstMove: PropTypes.func.isRequired,
+  showStartNumber: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -58,7 +58,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   sendStartNumber: number => dispatch(send(number)),
-  showFirstMove: number => dispatch(showFirstMove(number)),
+  showStartNumber: number => dispatch(showFirstMove(number)),
 });
 
 

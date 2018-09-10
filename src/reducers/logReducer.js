@@ -1,4 +1,5 @@
 let index = -1;
+let gameResult;
 export default (state = [], action) => {
   switch (action.type) {
     case 'SHOW_START_MESSAGE':
@@ -15,8 +16,8 @@ export default (state = [], action) => {
       return state.concat([{ id: index, message: `You added ${action.step}, sent ${action.resultNumber} to the other.` }]);
     case 'GAME_OVER':
       index += 1;
-      let result = action.winner ? 'You won! :)' : 'You lost! :('
-      return state.concat([{ id: index, message: result }]);
+      gameResult = action.winner ? 'You won! :)' : 'You lost! :(';
+      return state.concat([{ id: index, message: gameResult }]);
     case 'DISCONNECTED':
       index += 1;
       return state.concat([{ id: index, message: 'Disconnected from the server. Please refresh to retry.' }]);

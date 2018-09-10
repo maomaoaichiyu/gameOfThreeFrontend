@@ -20,14 +20,14 @@ export const showOwnMove = (step, resultNumber) => ({
   resultNumber,
 });
 
-export const showFirstMove = (number) => ({
+export const showFirstMove = number => ({
   type: 'SHOW_FIRST_MOVE',
-  number
+  number,
 });
 
-export const gameOver = (winner) => ({
+export const gameOver = winner => ({
   type: 'GAME_OVER',
-  winner
+  winner,
 });
 
 export const disconnected = () => ({

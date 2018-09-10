@@ -12,14 +12,16 @@ class GameInteraction extends Component {
 
   sendButtonClick = () => {
     const { step } = this.state;
-    const { sendResultNumber, receivedNumber, showMove, showErrorMessage } = this.props;
-    let stepNumber = parseInt(step, 10);
+    const {
+      sendResultNumber, receivedNumber, showMove, showWrongStepMessage,
+    } = this.props;
+    const stepNumber = parseInt(step, 10);
     if ((receivedNumber + stepNumber) % 3 === 0) {
-      let resultNumber = (receivedNumber + stepNumber) / 3;
+      const resultNumber = (receivedNumber + stepNumber) / 3;
       showMove(stepNumber, resultNumber);
       sendResultNumber(resultNumber);
     } else {
-      showErrorMessage();
+      showWrongStepMessage();
     }
   }
 
@@ -63,9 +65,9 @@ class GameInteraction extends Component {
 GameInteraction.propTypes = {
   gameState: PropTypes.string.isRequired,
   receivedNumber: PropTypes.number,
-  sendResultNumber:  PropTypes.func.isRequired,
+  sendResultNumber: PropTypes.func.isRequired,
   showMove: PropTypes.func.isRequired,
-  showErrorMessage: PropTypes.func.isRequired,
+  showWrongStepMessage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -76,6 +78,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   sendResultNumber: number => dispatch(send(number)),
   showMove: (step, resultNumber) => dispatch(showOwnMove(step, resultNumber)),
-  showErrorMessage: () => dispatch(showErrorMessage()),
+  showWrongStepMessage: () => dispatch(showErrorMessage()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(GameInteraction);
