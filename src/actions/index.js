@@ -30,6 +30,10 @@ export const gameOver = winner => ({
   winner,
 });
 
+export const kickedout = () => ({
+  type: 'KICKEDOUT',
+});
+
 export const connected = () => ({
   type: 'CONNECTED',
 });
@@ -58,6 +62,10 @@ socket.on('start', () => {
 socket.on('game-over', (message) => {
   store.dispatch(gameOver(message.win));
   socket.disconnect();
+});
+
+socket.on('kickout', () => {
+  store.dispatch(kickedout());
 });
 
 socket.on('connect', () => {
