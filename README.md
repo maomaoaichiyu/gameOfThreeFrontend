@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/maomaoaichiyu/gameOfThreeFrontend.svg?branch=master)](https://travis-ci.com/maomaoaichiyu/gameOfThreeFrontend)
 
-# gameOfThree_frontend
+# gameOfThreeFrontend
 
 Frontend for gameOfThree
 
@@ -13,3 +13,4 @@ npm ci
 # serve with hot reload at localhost:3000
 npm start
 ```
+The project is currently hosted at https://game-of-3-frontend.herokuapp.com/
