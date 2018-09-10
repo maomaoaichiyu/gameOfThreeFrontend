@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './components.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { send, showOwnMove } from '../actions';
+import { send, showOwnMove, showErrorMessage } from '../actions';
 
 class GameInteraction extends Component {
   constructor(props) {
@@ -12,12 +12,14 @@ class GameInteraction extends Component {
 
   sendButtonClick = () => {
     const { step } = this.state;
-    const { sendResultNumber, receivedNumber, showMove } = this.props;
+    const { sendResultNumber, receivedNumber, showMove, showErrorMessage } = this.props;
     let stepNumber = parseInt(step, 10);
     if ((receivedNumber + stepNumber) % 3 === 0) {
       let resultNumber = (receivedNumber + stepNumber) / 3;
       showMove(stepNumber, resultNumber);
       sendResultNumber(resultNumber);
+    } else {
+      showErrorMessage();
     }
   }
 
@@ -63,6 +65,7 @@ GameInteraction.propTypes = {
   receivedNumber: PropTypes.number,
   sendResultNumber:  PropTypes.func.isRequired,
   showMove: PropTypes.func.isRequired,
+  showErrorMessage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -73,5 +76,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   sendResultNumber: number => dispatch(send(number)),
   showMove: (step, resultNumber) => dispatch(showOwnMove(step, resultNumber)),
+  showErrorMessage: () => dispatch(showErrorMessage()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(GameInteraction);

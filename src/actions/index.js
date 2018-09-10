@@ -34,6 +34,10 @@ export const disconnected = () => ({
   type: 'DISCONNECTED',
 });
 
+export const showErrorMessage = () => ({
+  type: 'INVALID_MOVE',
+});
+
 export const send = number => () => {
   socket.emit('number', number);
   return Promise.resolve();

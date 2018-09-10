@@ -20,6 +20,9 @@ export default (state = [], action) => {
     case 'DISCONNECTED':
       index += 1;
       return state.concat([{ id: index, message: 'Disconnected from the server. Please refresh to retry.' }]);
+    case 'INVALID_MOVE':
+      index += 1;
+      return state.concat([{ id: index, message: 'Invalid move. Please recheck your selected step.' }]);
     default:
       return state;
   }
