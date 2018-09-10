@@ -7,6 +7,7 @@ export default (state = { received_number: undefined, status: 'wait' }, action) 
     case 'SHOW_OWN_MOVE':
       return Object.assign(state, { status: 'wait' });
     case 'GAME_OVER':
+    case 'DISCONNECTED':
       return Object.assign(state, { received_number: undefined, status: 'over' });
     default:
       return state;

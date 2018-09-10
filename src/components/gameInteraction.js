@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './components.css';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { send, showOwnMove } from '../actions';
 
 class GameInteraction extends Component {
   constructor(props) {
@@ -9,6 +11,14 @@ class GameInteraction extends Component {
   }
 
   sendButtonClick = () => {
+    const { step } = this.state;
+    const { sendResultNumber, receivedNumber, showMove } = this.props;
+    let stepNumber = parseInt(step, 10);
+    if ((receivedNumber + stepNumber) % 3 === 0) {
+      let resultNumber = (receivedNumber + stepNumber) / 3;
+      showMove(stepNumber, resultNumber);
+      sendResultNumber(resultNumber);
+    }
   }
 
   handleChange = (event) => {
@@ -17,20 +27,21 @@ class GameInteraction extends Component {
 
   render() {
     const { step } = this.state;
+    const { gameState } = this.props;
     return (
       <div className="GameInteractionBlock">
         <div className="ChooseTitle">Choose a step:</div>
         <div className="Choice">
           <label htmlFor="-1">
-            <input type="radio" id="-1" name="choice" value="-1" />
+            <input type="radio" onChange={this.handleChange} id="-1" name="choice" value="-1" />
             -1
           </label>
           <label htmlFor="0">
-            <input type="radio" id="0" name="choice" value="0" />
+            <input type="radio" onChange={this.handleChange} id="0" name="choice" value="0" />
             &nbsp;0
           </label>
           <label htmlFor="1">
-            <input type="radio" id="1" name="choice" value="1" />
+            <input type="radio" onChange={this.handleChange} id="1" name="choice" value="1" />
             &nbsp;1
           </label>
         </div>
@@ -38,7 +49,7 @@ class GameInteraction extends Component {
           className="InteractionButton"
           type="button"
           onClick={this.sendButtonClick}
-          disabled={!step}
+          disabled={!step || gameState !== 'move'}
         >
           Send
         </button>
@@ -47,4 +58,20 @@ class GameInteraction extends Component {
   }
 }
 
-export default connect()(GameInteraction);
+GameInteraction.propTypes = {
+  gameState: PropTypes.string.isRequired,
+  receivedNumber: PropTypes.number,
+  sendResultNumber:  PropTypes.func.isRequired,
+  showMove: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  gameState: state.gameStateReducer.status,
+  receivedNumber: state.gameStateReducer.received_number,
+});
+
+const mapDispatchToProps = dispatch => ({
+  sendResultNumber: number => dispatch(send(number)),
+  showMove: (step, resultNumber) => dispatch(showOwnMove(step, resultNumber)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(GameInteraction);

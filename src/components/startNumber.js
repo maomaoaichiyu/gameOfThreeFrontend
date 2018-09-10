@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './components.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { send } from '../actions';
+import { send, showFirstMove } from '../actions';
 
 class StartNumber extends Component {
   constructor(props) {
@@ -12,8 +12,10 @@ class StartNumber extends Component {
 
   startButtonClick = () => {
     const { startNumberInput } = this.state;
-    const { sendStartNumber } = this.props;
-    sendStartNumber(parseInt(startNumberInput, 10));
+    const { sendStartNumber, showFirstMove } = this.props;
+    let startNumber = parseInt(startNumberInput, 10);
+    showFirstMove(startNumber);
+    sendStartNumber(startNumber);
   }
 
   handleChange = (event) => {
@@ -47,6 +49,7 @@ class StartNumber extends Component {
 StartNumber.propTypes = {
   gameState: PropTypes.string.isRequired,
   sendStartNumber: PropTypes.func.isRequired,
+  showFirstMove: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -55,6 +58,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   sendStartNumber: number => dispatch(send(number)),
+  showFirstMove: number => dispatch(showFirstMove(number)),
 });
 
 

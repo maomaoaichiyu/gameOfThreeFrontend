@@ -20,8 +20,18 @@ export const showOwnMove = (step, resultNumber) => ({
   resultNumber,
 });
 
-export const gameOver = () => ({
+export const showFirstMove = (number) => ({
+  type: 'SHOW_FIRST_MOVE',
+  number
+});
+
+export const gameOver = (winner) => ({
   type: 'GAME_OVER',
+  winner
+});
+
+export const disconnected = () => ({
+  type: 'DISCONNECTED',
 });
 
 export const send = number => () => {
@@ -37,10 +47,11 @@ socket.on('start', () => {
   store.dispatch(showStartMessage());
 });
 
-socket.on('game-over', () => {
-  store.dispatch(gameOver());
+socket.on('game-over', (message) => {
+  store.dispatch(gameOver(message.win));
+  socket.disconnect();
 });
 
 socket.on('disconnect', () => {
-  store.dispatch(gameOver());
+  store.dispatch(disconnected());
 });
